@@ -4,6 +4,7 @@ import string
 from pathlib import Path 
 
 from faker import Faker 
+from zxcvbn import zxcvbn
 
 # defining dataset location
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,7 +83,8 @@ def generate_dataset(size=1000):
                 "username",
                 "password",
                 "category",
-                "length"
+                "length",
+                "entropy"
             ]
         )
 
@@ -123,6 +125,10 @@ def generate_dataset(size=1000):
             else:
                 password = generate_random_password()
 
+            analysis = zxcvbn(password)
+
+            entropy = analysis["guesses_log10"]
+
 
             writer.writerow(
                 [
@@ -130,7 +136,8 @@ def generate_dataset(size=1000):
                     fake.user_name(),
                     password,
                     category,
-                    len(password)
+                    len(password),
+                    entropy
                 ]
             )
 
