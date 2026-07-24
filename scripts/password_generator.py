@@ -186,3 +186,84 @@ def generate_password():
 
 
     return password, category
+
+def generate_balanced_password_dataset(
+    samples_per_category: int = 200
+):
+    """
+    Generate a balanced password dataset.
+
+    Creates equal numbers of:
+    - weak
+    - medium
+    - strong
+    - passphrase
+    - random
+
+    Returns:
+        List of tuples(password, category)
+    """
+
+    password_records = []
+
+
+    # Weak passwords
+    for _ in range(samples_per_category):
+
+        password_records.append(
+            (
+                random.choice(WEAK_PASSWORDS),
+                "weak"
+            )
+        )
+
+
+    # Medium passwords
+    for _ in range(samples_per_category):
+
+        password_records.append(
+            (
+                generate_medium_password(),
+                "medium"
+            )
+        )
+
+
+    # Strong passwords
+    for _ in range(samples_per_category):
+
+        password_records.append(
+            (
+                generate_strong_password(),
+                "strong"
+            )
+        )
+
+
+    # Passphrases
+    for _ in range(samples_per_category):
+
+        password_records.append(
+            (
+                generate_passphrase(),
+                "passphrase"
+            )
+        )
+
+
+    # Random passwords
+    for _ in range(samples_per_category):
+
+        password_records.append(
+            (
+                generate_random_password(),
+                "random"
+            )
+        )
+
+
+    # Mix the dataset
+    random.shuffle(password_records)
+
+
+    return password_records

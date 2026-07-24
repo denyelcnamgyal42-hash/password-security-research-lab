@@ -4,7 +4,9 @@ from pathlib import Path
 
 from scripts.constants import DEFAULT_DATASET_SIZE
 from scripts.password_analysis import calculate_entropy
-from scripts.password_generator import generate_password
+from scripts.password_generator import (
+    generate_balanced_password_dataset
+)
 from scripts.user_generator import generate_username
 
 
@@ -46,16 +48,17 @@ def generate_dataset(size: int = DEFAULT_DATASET_SIZE):
         )
 
 
-        for user_id in range(
-            1,
-            size + 1
+        password_records = generate_balanced_password_dataset(
+            size // 5
+        )
+
+
+        for user_id, (password, category) in enumerate(
+            password_records,
+            start=1
         ):
 
-
             username = generate_username()
-
-
-            password, category = generate_password()
 
 
             entropy = calculate_entropy(
