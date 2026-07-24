@@ -1,0 +1,9 @@
+{
+    "experiment": "MD5 Dictionary Attack",
+    "algorithm": "MD5",
+    "tool": "John the Ripper",
+    "attack_type": "dictionary",
+    "dataset_size": 1000,
+    "recovered": 172,
+    "success_rate": 17.2
+}
