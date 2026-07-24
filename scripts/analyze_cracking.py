@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 from collections import Counter
-
+import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,12 +13,17 @@ DATA_FILE = (
 )
 
 
+ALGORITHM = (
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else "md5"
+        )
+
 CRACK_FILE = (
     BASE_DIR /
     "results" /
-    "md5_show.txt"
+    f"{ALGORITHM}_show.txt"
 )
-
 
 OUTPUT_FILE = (
     BASE_DIR /
@@ -90,7 +95,7 @@ def analyze():
                     "recovered_password": password,
                     "category":
                     original[username]["category"],
-                    "algorithm": "MD5"
+                    "algorithm": ALGORITHM.upper()
                 }
             )
 

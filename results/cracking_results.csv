@@ -1,0 +1,5 @@
+algorithm,total_users,recovered,success_rate,attack_type
+MD5,1000,172,17.2,dictionary
+SHA-256,1000,172,17.2,dictionary
+bcrypt,1000,65,6.5,dictionary
+Argon2id,1000,61,6.1,dictionary
