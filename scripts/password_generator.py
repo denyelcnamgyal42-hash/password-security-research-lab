@@ -4,16 +4,50 @@ import string
 from scripts.constants import (
     WEAK_PASSWORDS,
     MEDIUM_PASSWORDS,
-    STRONG_PASSWORDS,
     PASSPHRASES,
 )
 
 
+# Word banks for generating realistic passwords
+
+WORDS = [
+    "Mountain",
+    "River",
+    "Forest",
+    "Ocean",
+    "Silver",
+    "Golden",
+    "Tiger",
+    "Falcon",
+    "Eagle",
+    "Cloud",
+    "Storm",
+    "Shadow",
+    "Dragon",
+    "Phoenix",
+]
+
+
+PASSPHRASE_WORDS = [
+    "mountain",
+    "river",
+    "forest",
+    "cloud",
+    "moon",
+    "star",
+    "coffee",
+    "rain",
+    "garden",
+    "dream",
+    "ocean",
+    "flower",
+]
+
+
 def generate_random_password(length: int = 16) -> str:
     """
-    Generate a random password.
-
-    Used to simulate password manager generated passwords.
+    Generate a random password similar to
+    password-manager generated passwords.
     """
 
     characters = (
@@ -29,12 +63,88 @@ def generate_random_password(length: int = 16) -> str:
 
 
 
+def generate_strong_password() -> str:
+    """
+    Generate strong human-style passwords.
+
+    Example:
+    Silver-Tiger-482
+    """
+
+    word1 = random.choice(WORDS)
+
+    word2 = random.choice(WORDS)
+
+    number = random.randint(
+        100,
+        999
+    )
+
+    return f"{word1}-{word2}-{number}"
+
+
+
+def generate_medium_password() -> str:
+    """
+    Generate medium strength passwords.
+
+    Example:
+    Coffee#72
+    """
+
+    word = random.choice(
+        [
+            "Coffee",
+            "Summer",
+            "Tiger",
+            "Bhutan",
+            "School",
+            "Dragon",
+        ]
+    )
+
+
+    symbol = random.choice(
+        [
+            "!",
+            "@",
+            "#",
+            "$",
+        ]
+    )
+
+
+    number = random.randint(
+        10,
+        99
+    )
+
+
+    return f"{word}{symbol}{number}"
+
+
+
+def generate_passphrase() -> str:
+    """
+    Generate memorable passphrases.
+
+    Example:
+    mountain-river-cloud-star
+    """
+
+    words = random.sample(
+        PASSPHRASE_WORDS,
+        4
+    )
+
+
+    return "-".join(words)
+
+
+
 def generate_password():
     """
-    Generate a password and return its category.
-
-    Returns:
-        tuple(password, category)
+    Generate password and category.
     """
 
     category = random.choice(
@@ -57,23 +167,17 @@ def generate_password():
 
     elif category == "medium":
 
-        password = random.choice(
-            MEDIUM_PASSWORDS
-        )
+        password = generate_medium_password()
 
 
     elif category == "strong":
 
-        password = random.choice(
-            STRONG_PASSWORDS
-        )
+        password = generate_strong_password()
 
 
     elif category == "passphrase":
 
-        password = random.choice(
-            PASSPHRASES
-        )
+        password = generate_passphrase()
 
 
     else:
